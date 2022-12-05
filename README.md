@@ -1,4 +1,4 @@
-# BROKER 
+# STEAM
 
 ## Installation of dependencies
 All dependencies are in **requirements.txt** file.
