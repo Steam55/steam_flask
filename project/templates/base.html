@@ -1,0 +1,312 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Bitbetio - HTML Template</title>
+
+    <link rel="shortcut icon" href="static/images/fav.png" type="image/x-icon">
+    <link rel="stylesheet" href="static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="static/css/fontawesome.min.css">
+    <link rel="stylesheet" href="static/css/jquery-ui.css">
+    <link rel="stylesheet" href="static/css/plugin/nice-select.css">
+    <link rel="stylesheet" href="static/css/plugin/magnific-popup.css">
+    <link rel="stylesheet" href="static/css/plugin/slick.css">
+    <link rel="stylesheet" href="static/css/arafat-font.css">
+    <link rel="stylesheet" href="static/css/plugin/animate.css">
+    <link rel="stylesheet" href="static/css/style.css">
+</head>
+
+<body>
+    <!-- start preloader -->
+    <div class="preloader" id="preloader"></div>
+    <!-- end preloader -->
+
+    <!-- Scroll To Top Start-->
+    <a href="javascript:void(0)" class="scrollToTop"><i class="fas fa-angle-double-up"></i></a>
+    <!-- Scroll To Top End -->
+    
+    <!-- Login Registration start -->
+    <div class="log-reg">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="modal fade" id="loginMod">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-header justify-content-center">
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <ul class="nav log-reg-btn justify-content-around">
+                                    <!-- <li class="bottom-area" role="presentation">
+                                        <button class="nav-link" id="regArea-tab" data-bs-toggle="tab"
+                                            data-bs-target="#regArea" type="button" role="tab" aria-controls="regArea"
+                                            aria-selected="false">
+                                            S'INSCRIRE
+                                        </button>
+                                    </li> -->
+                                    <li class="bottom-area" role="presentation">
+                                        <button class="nav-link active" id="loginArea-tab" data-bs-toggle="tab"
+                                            data-bs-target="#loginArea" type="button" role="tab"
+                                            aria-controls="loginArea" aria-selected="true">
+                                            SE CONNECTER
+                                        </button>
+                                    </li>
+                                </ul>
+                                <div class="tab-content">
+                                    <div class="tab-pane fade show active" id="loginArea" role="tabpanel"
+                                        aria-labelledby="loginArea-tab">
+                                        <div class="login-reg-content">
+                                            <div class="modal-body">
+                                                <div class="head-area">
+                                                    <h6 class="title">
+
+                                                        {% with messages = get_flashed_messages(with_categories = true) %}
+                                                            {% if messages %}
+                                                                {% for item in messages %}
+                                                                    {% if item[0] == 'login_error' %}
+                                                                        <div style="background-color: white;padding: 20px; border-radius: 10px">
+                                                                            <h6 style=" color: red !important; ">
+                                                                                {{ item[1] }}
+                                                                            </h6>
+                                                                        </div>
+                                                                    {% endif %}
+                                                                    {% if item[0] == 'newSignUp' %}
+                                                                        <div style="background-color: white;padding: 20px; border-radius: 10px">
+                                                                            <h6 style=" color: rgb(32, 109, 25) !important; ">
+                                                                                {{ item[1] }}
+                                                                            </h6>
+                                                                        </div>
+                                                                    {% endif %}
+                                                                {% endfor %}
+                                                            {% else %}
+                                                                Veuillez entrer vos informations de connexion
+                                                            {% endif %}
+                                                        {% endwith %}
+
+
+                                                    </h6>
+                                                </div>
+                                                <div class="form-area">
+                                                    <form action="/admin_login" method="POST">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="single-input">
+                                                                    <label for="celphone">Téléphone</label>
+                                                                    <input type="text" id="celphone" name="celphone" placeholder="Téléphone" required>
+                                                                </div>
+                                                                <div class="single-input">
+                                                                    <label for="password">Mot de passe</label>
+                                                                    <input type="password" id="password" name="password" placeholder="Mot de passe" required>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-12">
+                                                                <div class="remember-me">
+                                                                    <label
+                                                                        class="checkbox-single d-flex align-items-center">
+                                                                        <span class="left-area">
+                                                                            <span class="checkbox-area d-flex">
+                                                                                <input type="checkbox"
+                                                                                    checked="checked">
+                                                                                <span class="checkmark"></span>
+                                                                            </span>
+                                                                            <span
+                                                                                class="item-title d-flex align-items-center">
+                                                                                <span>Se rappeler de moi</span>
+                                                                            </span>
+                                                                        </span>
+                                                                    </label>
+                                                                </div>
+                                                            </div>
+                                                            <span class="btn-border w-100">
+                                                                <button class="cmn-btn w-100">SE CONNECTER</button>
+                                                            </span>
+                                                        </div>
+                                                    </form>
+                                                    <!-- <div class="bottom-area text-center">
+                                                        <p>Pas encore membre ? <a href="javascript:void(0)" class="reg-btn">S'enrégistrer</a></p>
+                                                    </div> -->
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane fade" id="regArea" role="tabpanel"
+                                        aria-labelledby="regArea-tab">
+                                        <div class="login-reg-content regMode">
+                                            <div class="modal-body">
+                                                <div class="head-area">
+
+                                                        {% with messages = get_flashed_messages(with_categories = true) %}
+                                                            {% if messages %}
+                                                                {% for item in messages %}
+                                                                    {% if item[0] == 'signup_error' %}
+                                                                    <div style="background-color: white;padding: 20px; border-radius: 10px">
+                                                                        <h6 style=" color: red !important; ">
+                                                                            {{ item[1] }}
+                                                                        </h6>
+                                                                    </div>
+                                                                    {% endif %}
+                                                                {% endfor %}
+                                                            {% else %}
+                                                                <h6 class="title">S'inscrire sur Bethub</h6>
+                                                                <div class="social-link d-flex align-items-center">
+                                                                    <a href="javascript:void(0)" class="active" style="margin: auto;">
+                                                                        <i class="fab fa-telegram"></i>
+                                                                    </a>
+                                                                </div>
+                                                            {% endif %}
+                                                        {% endwith %}
+
+                                                    
+                                                    
+                                                </div>
+                                                <div class="form-area">
+                                                    <form action="/admin_login" method="POST">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="single-input">
+                                                                    <label for="email">Email</label>
+                                                                    <input type="email" id="email" name="email"
+                                                                        placeholder="Adresse Email" required>
+                                                                </div>
+                                                                <div class="single-input">
+                                                                    <label for="pseudo">Pseudo</label>
+                                                                    <input type="text" id="pseudo" name="pseudo"
+                                                                        placeholder="Pseudo" required>
+                                                                </div>
+                                                                <div class="single-input">
+                                                                    <label for="password">Mot de passe</label>
+                                                                    <input type="password" id="password" name="password"
+                                                                        placeholder="Mot de passe" required>
+                                                                </div>
+                                                            </div>
+                                                            <span class="btn-border w-100">
+                                                                <button class="cmn-btn w-100">S'INSCRIRE</button>
+                                                            </span>
+                                                        </div>
+                                                    </form>
+                                                    <div class="bottom-area text-center">
+                                                        <p>Déjà membre ? <a href="javascript:void(0)"
+                                                                class="log-btn">Se connecter</a></p>
+                                                    </div>
+                                                    <div class="counter-area">
+                                                        <div class="single">
+                                                            <div class="icon-area">
+                                                                <img src="static/images/icon/signup-counter-icon-1.png"
+                                                                    alt="icon">
+                                                            </div>
+                                                            <div class="text-area">
+                                                                <p>25,179</p>
+                                                                <p class="mdr">Paris faits</p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="single">
+                                                            <div class="icon-area">
+                                                                <img src="static/images/icon/signup-counter-icon-2.png"
+                                                                    alt="icon">
+                                                            </div>
+                                                            <div class="text-area">
+                                                                <p>67 205 325</p>
+                                                                <p class="mdr">Total Gagné</p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+    <!-- Login Registration end -->
+
+    {% block content %} {% endblock %}
+
+    <!-- Footer Area Start -->
+    <!-- <footer class="footer-section">
+        <div class="container pt-120">
+            <div class="row justify-content-center">
+                <div class="col-lg-10">
+                    <div class="newsletter">
+                        <div class="section-text text-center">
+                            <h5 class="sub-title">Subscribe Us</h5>
+                            <h3 class="title">For Newsletter</h3>
+                            <p>Subscribe to our newsletter to receive all the latest news and updates</p>
+                        </div>
+                        <form action="#">
+                            <div class="form-group d-flex align-items-center">
+                                <input type="text" placeholder="Enter your email Address">
+                                <button><img src="static/images/icon/arrow-right-2.png" alt="icon"></button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom-area pt-120">
+                <div class="row">
+                    <div class="col-xl-12">
+                        <div class="menu-item">
+                            <a href="index-2.html" class="logo">
+                                <img src="static/images/logo.png" alt="logo">
+                            </a>
+                            <ul class="footer-link">
+                                <li><a href="contact.html">Contact</a></li>
+                                <li><a href="terms-conditions.html">Terms of Services</a></li>
+                                <li><a href="privacy-policy.html">Privacy</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="copyright">
+                            <div class="copy-area">
+                                <p> Copyright © <a href="index-2.html">Bitbetio</a> | Designed by
+                                    <a href="https://themeforest.net/user/pixelaxis" class="auth">Pixelaxis</a>
+                                </p>
+                            </div>
+                            <div class="social-link d-flex align-items-center">
+                                <a href="javascript:void(0)"><i class="fab fa-facebook-f"></i></a>
+                                <a href="javascript:void(0)"><i class="fab fa-twitter"></i></a>
+                                <a href="javascript:void(0)"><i class="fab fa-linkedin-in"></i></a>
+                                <a href="javascript:void(0)"><i class="fab fa-instagram"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer> -->
+    <!-- Footer Area End -->
+
+    <!--==================================================================-->
+    <script data-cfasync="false" src="https://pixner.net/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="static/js/jquery.min.js"></script>
+    <script src="static/js/jquery-ui.js"></script>
+    <script src="static/js/bootstrap.min.js"></script>
+    <script src="static/js/fontawesome.js"></script>
+    <script src="static/js/plugin/slick.js"></script>
+    <script src="static/js/plugin/jquery.nice-select.min.js"></script>
+    <script src="static/js/plugin/jquery.downCount.js"></script>
+    <script src="static/js/plugin/counter.js"></script>
+    <script src="static/js/plugin/waypoint.min.js"></script>
+    <script src="static/js/plugin/jquery.magnific-popup.min.js"></script>
+    <script src="static/js/plugin/wow.min.js"></script>
+    <script src="static/js/plugin/plugin.js"></script>
+    <script src="static/js/main.js"></script>
+
+    {% block additionnalScripts %} {% endblock %}
+
+</body>
+
+
+<!-- Mirrored from pixner.net/bitbetio/main/dashboard.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 10 Mar 2022 16:17:07 GMT -->
+</html>

@@ -1,0 +1,33 @@
+{% extends "base.html" %} 
+
+    
+{% block additionnalScripts %}
+    
+    {% if login_error   %}
+        <script>
+            var myModal = new bootstrap.Modal(
+                document.getElementById('loginMod')
+            );
+            myModal.show()
+                
+        </script>
+    {% endif %}
+    {% if signup_error   %}
+        <script>
+            var myModal = new bootstrap.Modal(
+                document.getElementById('loginMod')
+            );
+            myModal.show() 
+            $("#regArea").addClass("show").addClass("active");
+            $("#loginArea").removeClass("show").removeClass("active");
+            $("#loginArea-tab").removeClass("active");
+            $("#regArea-tab").addClass("active");
+        </script>
+    {% endif %}
+
+    <script>
+        $(".nav-link.nav-link-accueil").addClass('active')
+    </script>
+{% endblock %}
+
+    

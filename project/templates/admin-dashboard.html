@@ -1,0 +1,404 @@
+{% extends "base.html" %}
+{% block content %}
+
+<!-- Dashboard Content Section start -->
+<section class="dashboard-content pt-120">
+    <div class="overlay">
+        <div class="dashboard-heading">
+            <div class="container">
+                <div class="row justify-content-lg-center ">
+                    <div class="col-xl-12 col-lg-12">
+                        <ul class="nav" role="tablist" style="justify-content: start;">
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link active" id="become-seller-tab" data-bs-toggle="tab"
+                                    data-bs-target="#become-seller" type="button" role="tab"
+                                    aria-controls="become-seller" aria-selected="true">Demandes Vendeur</button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="become-delivery-man-tab" data-bs-toggle="tab"
+                                    data-bs-target="#become-delivery-man" type="button" role="tab"
+                                    aria-controls="become-delivery-man" aria-selected="false">Demandes Livreur</button>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-xl-12 col-lg-8">
+                    <div class="tab-content">
+                        <div class="tab-pane fade show active" id="become-seller" role="tabpanel"
+                            aria-labelledby="become-seller-tab">
+                            <div class="row">
+                                <div class="col-12">
+                                    {% with messages = get_flashed_messages(with_categories = true) %}
+                                    {% if messages %}
+                                    {% for item in messages %}
+                                    {% if item[0] == 'become_seller_validation_error' %}
+                                    <div
+                                        style="background-color: white;padding: 20px; border-radius: 10px; margin-top: 10px; text-align: center;">
+                                        <h6 style=" color: red !important; ">
+                                            {{ item[1] }}
+                                        </h6>
+                                    </div>
+                                    {% endif %}
+                                    {% if item[0] == 'become_seller_validation_success' %}
+                                    <div
+                                        style="background-color: white;padding: 20px; border-radius: 10px; margin-top: 10px; text-align: center;">
+                                        <h6 style=" color: rgb(32, 109, 25) !important; ">
+                                            {{ item[1] }}
+                                        </h6>
+                                    </div>
+                                    {% endif %}
+                                    {% endfor %}
+                                    {% endif %}
+                                    {% endwith %}
+                                </div>
+
+                                <div class="col-12">
+                                    <h5 class="title">Demandes en attente</h5>
+                                    <div class="table-responsive">
+                                        <table class="table">
+                                            {% if become_seller_request_global_list|length == 0 %}
+                                            <p style="font-weight: bold">
+                                                Sorry, liste vide.
+                                            </p>
+                                            {% else %}
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">Demande Id</th>
+                                                    <th scope="col">Nom du demandeur</th>
+                                                    <th scope="col">Nom du restaurant</th>
+                                                    <th scope="col">Description</th>
+                                                    <th scope="col">Piece d'identité</th>
+                                                    <th scope="col"></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {% for item in become_seller_request_global_list|sort( reverse = true,
+                                                attribute = 'request.id') %}
+                                                <tr>
+                                                    <th scope="row"> {{ item.request.id }} </th>
+                                                    <th scope="row"> {{ item.user.firstname }} {{ item.user.lastname }}
+                                                    </th>
+                                                    <th scope="row"> {{ item.request.designation }} </th>
+                                                    <td>
+                                                        {{ item.request.description }}
+                                                    </td>
+                                                    <td>
+                                                        <button class="cmn-btn" id="showCard"> Voir</button>
+                                                        <div class="log-reg">
+                                                            <div class="container">
+                                                                <div class="row">
+                                                                    <div class="col-lg-6">
+                                                                        <div class="modal fade" id="userCardModal">
+                                                                            <div
+                                                                                class="modal-dialog modal-dialog-centered">
+                                                                                <div class="modal-content">
+                                                                                    {% if item.user_card.type_id == 1 %}
+                                                                                    <img src="static/images/user/identity_card/{{item.user_card.image}}"
+                                                                                        alt="">
+                                                                                    {% endif %}
+                                                                                    {% if item.user_card.type_id == 2 %}
+                                                                                    <img src="static/images/user/passport/{{item.user_card.image}}"
+                                                                                        alt="">
+                                                                                    {% endif %}
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <form action="/admin" method="POST">
+                                                        <td>
+                                                            <input type="hidden"
+                                                                name="become_seller_request_to_validate_id"
+                                                                value="{{ item.request.id }}">
+                                                            <button class="cmn-btn"> Vaider</button>
+                                                        </td>
+                                                    </form>
+
+                                                </tr>
+                                                {% endfor %}
+                                            </tbody>
+                                            {% endif %}
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="become-delivery-man" role="tabpanel"
+                            aria-labelledby="become-delivery-man-tab">
+                            <div class="row">
+                                <div class="col-12">
+                                    {% with messages = get_flashed_messages(with_categories = true) %}
+                                    {% if messages %}
+                                    {% for item in messages %}
+                                    {% if item[0] == 'become_delivery_man_validation_error' %}
+                                    <div
+                                        style="background-color: white;padding: 20px; border-radius: 10px; margin-top: 10px; text-align: center;">
+                                        <h6 style=" color: red !important; ">
+                                            {{ item[1] }}
+                                        </h6>
+                                    </div>
+                                    {% endif %}
+                                    {% if item[0] == 'become_delivery_man_validation_success' %}
+                                    <div
+                                        style="background-color: white;padding: 20px; border-radius: 10px; margin-top: 10px; text-align: center;">
+                                        <h6 style=" color: rgb(32, 109, 25) !important; ">
+                                            {{ item[1] }}
+                                        </h6>
+                                    </div>
+                                    {% endif %}
+                                    {% endfor %}
+                                    {% endif %}
+                                    {% endwith %}
+                                </div>
+
+                                <div class="col-12">
+                                    <h5 class="title">Demandes en attente</h5>
+                                    <div class="table-responsive">
+                                        <table class="table">
+                                            {% if become_delivery_man_request_global_list|length == 0 %}
+                                            <p style="font-weight: bold">
+                                                Sorry, liste vide.
+                                            </p>
+                                            {% else %}
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">Demande Id</th>
+                                                    <th scope="col">Nom du demandeur</th>
+                                                    <th scope="col">Apte pour livraison</th>
+                                                    <th scope="col">Outils de livraison</th>
+                                                    <th scope="col">Accepte responsabilités</th>
+                                                    <th scope="col">A propos de lui</th>
+                                                    <th scope="col">Apte pour visio</th>
+                                                    <th scope="col">Pièce d'identité</th>
+                                                    <th scope="col"></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {% for item in become_delivery_man_request_global_list|sort( reverse =
+                                                true, attribute = 'request.id') %}
+                                                <tr>
+                                                    <th scope="row"> {{ item.request.id }} </th>
+                                                    <th scope="row"> {{ item.user.firstname }} {{ item.user.lastname }}
+                                                    </th>
+                                                    <td>
+                                                        {% if item.request.can_make_delivery == true %}
+                                                        Oui
+                                                        {% else %}
+                                                        Non
+                                                        {% endif %}
+                                                    </td>
+
+                                                    <td>
+                                                        {% for tool in item.delivery_tools %}
+                                                        {{ tool.name }}
+                                                        {% endfor %}
+
+                                                    </td>
+                                                    <td>
+                                                        {% if item.request.accept_responsibilities == true %}
+                                                        Oui
+                                                        {% else %}
+                                                        Non
+                                                        {% endif %}
+                                                    </td>
+                                                    <td>
+                                                        {{ item.request.about_you }}
+
+                                                    </td>
+                                                    <td>
+                                                        {% if item.request.can_make_video_conference == true %}
+                                                        Oui
+                                                        {% else %}
+                                                        Non
+                                                        {% endif %}
+                                                    </td>
+                                                    <td>
+                                                        <button class="cmn-btn" id="showCard"> Voir</button>
+                                                        <div class="log-reg">
+                                                            <div class="container">
+                                                                <div class="row">
+                                                                    <div class="col-lg-6">
+                                                                        <div class="modal fade" id="userCardModal">
+                                                                            <div
+                                                                                class="modal-dialog modal-dialog-centered">
+                                                                                <div class="modal-content">
+                                                                                    {% if item.user_card.type_id == 1 %}
+                                                                                    <img src="static/images/user/identity_card/{{item.user_card.image}}"
+                                                                                        alt="">
+                                                                                    {% endif %}
+                                                                                    {% if item.user_card.type_id == 2 %}
+                                                                                    <img src="static/images/user/passport/{{item.user_card.image}}"
+                                                                                        alt="">
+                                                                                    {% endif %}
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <form action="/admin" method="POST">
+                                                        <td>
+                                                            <input type="hidden"
+                                                                name="become_deliver_man_request_to_validate_id"
+                                                                value="{{ item.request.id }}">
+                                                            <button class="cmn-btn"> Vaider</button>
+                                                        </td>
+                                                    </form>
+
+                                                </tr>
+                                                {% endfor %}
+                                            </tbody>
+                                            {% endif %}
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Dashboard Content Section end -->
+
+<!-- Betpop Up Modal start -->
+<div class="betpopmodal">
+    <div class="modal fade" id="betpop-up" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-xxl-8 col-xl-9 col-lg-11">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="top-item">
+                                    <a href="javascript:void(0)" class="cmn-btn firstTeam">Eagle will win</a>
+                                    <a href="javascript:void(0)" class="cmn-btn active draw">Draw</a>
+                                    <a href="javascript:void(0)" class="cmn-btn lastTeam">Paeek will win</a>
+                                </div>
+                                <div class="select-odds d-flex align-items-center">
+                                    <h6>Select Odds</h6>
+                                    <div class="d-flex in-dec-val">
+                                        <input type="text" value="1.5" class="InDeVal2">
+                                        <div class="btn-area">
+                                            <button class="plus2">
+                                                <img src="static/images/icon/up-arrow.png" alt="icon">
+                                            </button>
+                                            <button class="minus2">
+                                                <img src="static/images/icon/down-arrow.png" alt="icon">
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mid-area">
+                                    <div class="single-area">
+                                        <div class="item-title d-flex align-items-center justify-content-between">
+                                            <span>Bet Value :</span>
+                                            <select>
+                                                <option value="eth">ETH</option>
+                                                <option value="eth">ETH</option>
+                                                <option value="eth">ETH</option>
+                                            </select>
+                                        </div>
+                                        <div class="d-flex in-dec-val">
+                                            <input type="text" value="0.1" class="InDeVal1">
+                                            <div class="btn-area">
+                                                <button class="plus">
+                                                    <img src="static/images/icon/up-arrow.png" alt="icon">
+                                                </button>
+                                                <button class="minus">
+                                                    <img src="static/images/icon/down-arrow.png" alt="icon">
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="single-area quick-amounts">
+                                        <div class="item-title d-flex align-items-center">
+                                            <p>Quick Amounts</p>
+                                        </div>
+                                        <div class="input-item">
+                                            <button class="quickIn">0.005</button>
+                                            <button class="quickIn">0.025</button>
+                                            <button class="quickIn">0.1</button>
+                                            <button class="quickIn">0.5</button>
+                                            <button class="quickIn">2.5</button>
+                                        </div>
+                                    </div>
+                                    <div class="single-area smart-value">
+                                        <div class="item-title d-flex align-items-center">
+                                            <p class="mdr">Smart Contact Value</p>
+                                        </div>
+                                        <div class="contact-val d-flex align-items-center">
+                                            <h4>0.1103</h4>
+                                            <h5>ETH</h5>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="bottom-area">
+                                    <div class="fee-area">
+                                        <p>Winner will get: <span class="amount">0.179</span> ETH</p>
+                                        <p class="fee">Escrow Fee: <span>5%</span></p>
+                                    </div>
+                                    <div class="btn-area">
+                                        <button>Make (0.1 ETH) Bet</button>
+                                    </div>
+                                    <div class="bottom-right">
+                                        <p>Game Closes:</p>
+                                        <p class="date-area">Mar <span>21,2021-1:00</span> Am</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Betpop Up Modal end -->
+
+
+{% endblock %}
+
+{% block additionnalScripts %}
+
+<script>
+    $('#showCard').on('click', function () {
+        var myModal = new bootstrap.Modal(
+            document.getElementById('userCardModal')
+        );
+        myModal.show()
+    });
+</script>
+
+{# quand il y a réponse pour le formulaire #}
+{% with messages = get_flashed_messages(with_categories = true) %}
+{% if messages %}
+{% for item in messages %}
+{% if item[0] == 'become_delivery_man_validation_error' or item[0] == 'become_delivery_man_validation_success' %}
+<script>
+    var firstTabEl = document.querySelector('#become-delivery-man-tab')
+    var firstTab = new bootstrap.Tab(firstTabEl)
+    firstTab.show()
+</script>
+{% endif %}
+{% endfor %}
+{% endif %}
+{% endwith %}
+
+{% endblock %}

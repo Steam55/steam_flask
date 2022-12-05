@@ -1,0 +1,238 @@
+{% extends "base.html" %} 
+{% block content %}
+
+    <!-- Banner Section start -->
+    <section class="banner-section inner-banner tournaments">
+        <div class="overlay">
+            <div class="shape-area">
+                <img src="static/images/tournaments-illus.png" class="tournaments-illu" alt="image">
+            </div>
+            <div class="banner-content">
+                <div class="container">
+                    <div class="content-shape">
+                        <img src="static/images/sell-hero-illus.png" class="obj-8" alt="image">
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-9 col-md-10">
+                            <div class="main-content">
+                                <h1>Coupons</h1>
+                                <div class="breadcrumb-area">
+                                    <nav aria-label="breadcrumb">
+                                        <ol class="breadcrumb d-flex align-items-center">
+                                            <li class="breadcrumb-item"><a href="index-2.html">Accueil</a></li>
+                                            <li class="breadcrumb-item active" aria-current="page">Coupons</li>
+                                        </ol>
+                                    </nav>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Banner Section end -->
+
+    <!-- How it works In start -->
+    <section class="how-works-tournaments">
+        <div class="overlay">
+            <div class="container">
+                <div class="row cus-mar">
+                    <div class="col-md-6 col-lg-4">
+                        <div class="single-area text-center">
+                            <div class="img-area">
+                                <img src="static/images/icon/how-works-icon-9.png" alt="image">
+                            </div>
+                            <h4>1. Rejoignez-nous</h4>
+                            <p>Créez votre compte le plus simplement possible. </p>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-4">
+                        <div class="single-area text-center">
+                            <div class="img-area">
+                                <img src="static/images/icon/how-works-icon-10.png" alt="image">
+                            </div>
+                            <h4>2. Pariez</h4>
+                            <p>Pariez sur un coupon en cours</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-4">
+                        <div class="single-area text-center">
+                            <div class="img-area">
+                                <img src="static/images/icon/how-works-icon-11.png" alt="image">
+                            </div>
+                            <h4>3. Gagnez et reçevez </h4>
+                            <p>Reçevez vos gains dans votre compte et retirez à tout moment</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- How it works In end -->
+
+    <!-- Tournaments section start -->
+    <section class="tournaments-section">
+        <div class="overlay pt-120">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-6">
+                        <div class="section-header text-center">
+                            {# <h5 class="sub-title">Faites le meilleur des bénéfices avec Unibet TRC.</h5> #}
+                            <h2 class="title">Nos réçents coupons </h2>
+                            <p>Veuillez acheter les coupons chez votre administrateur avant de pouvoir parier grâce au code qui vous sera donné. </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-center">
+                    <ul class="nav" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <button class="cmn-btn active" id="ongoing-tab" data-bs-toggle="tab"
+                                data-bs-target="#ongoing" type="button" role="tab" aria-controls="ongoing"
+                                aria-selected="true">En Cours</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="cmn-btn" id="past-tab" data-bs-toggle="tab" data-bs-target="#past"
+                                type="button" role="tab" aria-controls="past" aria-selected="false">Expirés</button>
+                        </li>
+                    </ul>
+                </div>
+                <div class="tab-content">
+                    <div class="tab-pane fade show active" id="ongoing" role="tabpanel" aria-labelledby="ongoing-tab">
+                        <div class="row">
+                            <div class="col-12">
+                                {% if coupons_expire|length != 0 %}
+                                    {% for item in coupons_expire %}
+                                        {% if loop.index <= 10 %}
+                                            <div class="single-item">
+                                                <div class="left-item">
+                                                    <div class="logo-item">
+                                                        <img src="static/images/icon/tournaments-logo-5.png" alt="icon">
+                                                    </div>
+                                                    <div class="mid-area">
+                                                        <h3>Code coupon: ****** </h3>
+                                                        <ul>
+                                                            <li>
+                                                                <span><i class="far fa-calendar-alt"></i></span>
+                                                                Dernier match le: {{ item.last_match_at }}
+                                                            </li>
+                                                            <li>
+                                                                <span><i class="fas fa-users"></i></span>
+                                                                200+ PARTICIPANTS
+                                                            </li>
+                                                        </ul>
+                                                        <p>Dès que vous aurez gagné, les fonds vous seront transférés dans votre solde.</p>
+                                                    </div>
+                                                </div>
+                                                <div class="last-item">
+                                                    <h6>[  En Cours  ]</h6> 
+                                                    <br>
+                                                    <span class="btn-border">
+                                                        <a href="tournaments-details.html" class="cmn-btn"> Parier </a>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        {% endif %}
+                                    {% endfor %}
+                                {% else %}
+                                    <div style="background-color: white;padding: 20px; border-radius: 10px; margin-top: 10px; margin-bottom: 10px; text-align: center;">
+                                        <h6 style=" color: red !important; ">
+                                            Désolé, il n'y a pas encore de coupon en cours.
+                                        </h6>
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="past" role="tabpanel" aria-labelledby="past-tab">
+                        <div class="row">
+                            <div class="col-12">
+                                {% if coupons_encours|length != 0 %}
+                                    {% for item in coupons_encours %}
+                                        {% if loop.index <= 10  %}
+                                            <div class="single-item">
+                                                <div class="left-item">
+                                                    <div class="logo-item">
+                                                        <img src="static/images/icon/tournaments-logo-5.png" alt="icon">
+                                                    </div>
+                                                    <div class="mid-area">
+                                                        <h3>Code coupon: {{ item.slug }}</h3>
+                                                        <ul>
+                                                            <li>
+                                                                <span><i class="far fa-calendar-alt"></i></span>
+                                                                Dernier match le: {{ item.last_match_at }}
+                                                            </li>
+                                                            <li>
+                                                                <span><i class="fas fa-users"></i></span>
+                                                                200+ PARTICIPANTS
+                                                            </li>
+                                                        </ul>
+                                                        <p>Dès que vous aurez gagné, les fonds vous seront transférés dans votre solde.</p>
+                                                    </div>
+                                                </div>
+                                                <div class="last-item">
+                                                    <h6>[  Expiré  ]</h6> 
+                                                    <br>
+                                                    <span class="btn-border">
+                                                        <button class="cmn-btn" data-bs-toggle="modal"
+                                                        data-bs-target="#betpop-up"> Parier </button>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        {% endif %}
+                                    {% endfor %}
+                                {% else %}
+                                    <div style="background-color: white;padding: 20px; border-radius: 10px; margin-top: 10px; margin-bottom: 10px; text-align: center;">
+                                        <h6 style=" color: red !important; ">
+                                            Désolé, il n'y a pas de coupon expiré recemment.
+                                        </h6>
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Tournaments section end -->
+    <div class="betpopmodal">
+    <div class="modal fade" id="betpop-up" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-xxl-8 col-xl-9 col-lg-11">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="top-item" style="justify-content: space-around;">
+                                    <p class="firstTeam" style="vertical-align: middle;">Vous avez déjà acheté le coupon et avez reçu son code ?</p>
+                                    <a href="" class="cmn-btn lastTeam" style="border: 1px solid;">Parier maintenant</a>
+                                </div>
+                                <div class="top-item" style="border-bottom: none;justify-content: space-around;margin-bottom: 0; padding-bottom:0">
+                                    <p class="firstTeam" style="vertical-align: middle;">Vous n'avez pas encore acheté le coupon ?</p>
+                                    <a href="javascript:void(0)" class="cmn-btn lastTeam" style="border: 1px solid;">Acheter pour parier</a>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> 
+</div> 
+
+{% endblock %}
+
+{% block additionnalScripts %}
+
+    <script>
+        $(".nav-link.nav-link-coupons").addClass('active')
+    </script>
+
+{% endblock %}
+    
