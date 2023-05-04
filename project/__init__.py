@@ -38,7 +38,7 @@ app.register_blueprint(SWAGGERUI_BLUEPRINT, url_prefix=SWAGGER_URL)
 
 if __name__ == '__main__':
     # app.run(debug=True)
-    app.run( port=4444, debug=True, threaded=False)
+    app.run(port=4444, debug=True, threaded=False)
 
 login_manager = LoginManager()
 login_manager.login_view = 'admin.login'
